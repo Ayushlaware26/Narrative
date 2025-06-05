@@ -10,6 +10,7 @@ yarn.lock
 # Environment files
 # -------------------------------------
 .env
+.env.sample
 .env.local
 .env.*.local
 
