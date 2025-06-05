@@ -1,3 +1,4 @@
+
 import { createAgent, gemini } from "@inngest/agent-kit";
 
 const analyzeTicket = async (ticket) => {

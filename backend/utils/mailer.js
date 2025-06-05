@@ -1,29 +1,28 @@
 import nodemailer from "nodemailer";
 
-const sendEmail = async (to, subject, text) => {
-    try {
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            host: process.env.mailtrap_smtp_host,
-            port: process.env.mailtrap_smtp_port,
-            secure: false,
-            auth: {
-                user: process.env.mailtrap_smtp_user,
-                pass: process.env.mailtrap_smtp_password,
-            },
-        });
+export const sendMail = async (to, subject, text) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: process.env.MAILTRAP_SMTP_HOST,
+      port: process.env.MAILTRAP_SMTP_PORT,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: process.env.MAILTRAP_SMTP_USER,
+        pass: process.env.MAILTRAP_SMTP_PASS,
+      },
+    });
 
-        await transporter.sendMail({
-            from: 'support@gmail.com',
-            to,
-            subject,
-            text,
-        });
-        console.log("Email sent successfully",info.messageId);
-        return info;
-    } catch (error) {
-        console.log(error);
-    }
+    const info = await transporter.sendMail({
+      from: '"Inngest TMS',
+      to,
+      subject,
+      text,
+    });
+
+    console.log("Message sent:", info.messageId);
+    return info;
+  } catch (error) {
+    console.error("❌ Mail error", error.message);
+    throw error;
+  }
 };
-
-export default sendEmail;
